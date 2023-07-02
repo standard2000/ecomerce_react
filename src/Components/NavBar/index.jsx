@@ -1,7 +1,10 @@
 
+import {useEcom} from "../../Context"
 import { NavLink } from "react-router-dom";
 
+
 function NavBar() {
+  const ecom = useEcom();
   return (
     <nav className="w-full flex justify-between items-center fixed z-10 top-0 py-5 px-8 text-sm ">
       <ul className="flex items-center gap-3">
@@ -56,12 +59,12 @@ function NavBar() {
           </NavLink>
         </li>
         <li>
-          ShopiCar (0)
-        </li>
-        <li>
           <NavLink to='/sign-in' className={({isActive}) => (isActive ? 'navbar-link' : '')}>
             Sign In
           </NavLink>
+        </li>
+        <li>
+          ShopiCar ({ecom.count})
         </li>
 
       </ul>
@@ -69,4 +72,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export { NavBar};

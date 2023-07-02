@@ -1,13 +1,26 @@
-import { createContext } from "react"
+import { createContext, useContext, useState } from "react"
 
-const EconContext = createContext();
+const EcomContext = createContext();
 
 function EcomProvider({children}) {
+
+    const [count, setCount] = useState(0);  
+
   return (
-        <EconContext.Provider>
+        <EcomContext.Provider value={{
+            count, 
+            setCount,
+        }}>
             {children}
-        </EconContext.Provider>
+        </EcomContext.Provider>
   )
 }
 
-export default EcomProvider
+function useEcom(){
+    const ecom = useContext(EcomContext);
+    return ecom;
+}
+
+
+
+export {EcomProvider, useEcom}

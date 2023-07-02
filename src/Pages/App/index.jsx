@@ -5,10 +5,10 @@ import { MyOrder } from "../MyOrder";
 import { MyOrders } from "../MyOrders";
 import { SignIn } from "../SignIn";
 import { NotFound } from "../NotFound";
-import NavBar from "../../Components/NavBar";
+import {NavBar} from "../../Components/NavBar";
 import "./App.css";
 import Layout from "../../Components/Layout";
-import EcomProvider from "../../Context";
+import {EcomProvider} from "../../Context";
 
 const AppRoutes = () => {
   let routes = useRoutes([
@@ -44,4 +44,4 @@ function App() {
   );
 }
 
-export default App;
+export {App};
