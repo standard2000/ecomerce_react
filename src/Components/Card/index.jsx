@@ -1,4 +1,5 @@
 import {useEcom} from "../../Context"
+import { PlusIcon } from '@heroicons/react/24/solid'
 
 function Card(props) {
     const ecom = useEcom();
@@ -9,7 +10,9 @@ function Card(props) {
             <img className="hover:transition hover:duration-500 hover:shadow-md hover:shadow-slate-400 rounded-lg w-full h-full object-cover" src={props.data.images[0]} alt={props.data.title} />
             <div className="absolute top-0 right-0 flex justify-center items-center rounded-full w-6 h-6 m-2 p-1 bg-white/60"
             onClick={()=>ecom.setCount(ecom.count + 1)}
-            >+</div>
+            >
+              <PlusIcon className="w-6 h-6 text-blue-800" ></PlusIcon>
+            </div>
         </figure>
         <p className="flex justify-between items-center px-1">
             <span className="text-sm  font-light">{props.data.title}</span>

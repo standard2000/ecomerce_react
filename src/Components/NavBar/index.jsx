@@ -1,4 +1,5 @@
 
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import {useEcom} from "../../Context"
 import { NavLink } from "react-router-dom";
 
@@ -6,7 +7,7 @@ import { NavLink } from "react-router-dom";
 function NavBar() {
   const ecom = useEcom();
   return (
-    <nav className="w-full flex justify-between items-center fixed z-10 top-0 py-5 px-8 text-sm ">
+    <nav className="w-full flex justify-between items-center fixed z-10 top-0 py-5 px-8 text-sm bg-white">
       <ul className="flex items-center gap-3">
         <li className="font-semibold text-lg ">
           <NavLink to="/">
@@ -63,8 +64,9 @@ function NavBar() {
             Sign In
           </NavLink>
         </li>
-        <li>
-          ShopiCar ({ecom.count})
+        <li className="flex border border-black rounded-lg p-1 items-center font-semibold cursor-pointer hover:bg-blue-300 hover:text-white group hover:transition hover:duration-500">
+          <div ><ShoppingCartIcon className="w-6 h-6 text-blue-400 group-hover:text-white"></ShoppingCartIcon> </div>
+          <div>({ecom.count})</div>
         </li>
 
       </ul>

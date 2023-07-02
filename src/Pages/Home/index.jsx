@@ -4,6 +4,7 @@ import { useState } from "react";
 import Card from "../../Components/Card";
 import Layout from "../../Components/Layout";
 import { useEffect } from "react";
+import { ProductDetail } from "../../Components/ProductDetail";
 
 function Home() {
   const [items, setItems] = useState(null);
@@ -22,6 +23,7 @@ function Home() {
           <Card data={item} key={item.id} />
         ))}
       </div>
+      <ProductDetail />
     </Layout>
     // <div className='bg-green-100'>Home Page</div>
   );
