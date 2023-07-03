@@ -3,8 +3,12 @@ import { PlusIcon } from '@heroicons/react/24/solid'
 
 function Card(props) {
     const ecom = useEcom();
+    const showProduct = (productInfo) => {
+      ecom.onOpenDetail();
+      ecom.setProductInfo(productInfo);
+    }
   return (
-    <div className="bg-white cursor-pointer w-56 h-60 rounded-lg" onClick={()=>ecom.onOpenDetail()}>
+    <div className="bg-white cursor-pointer w-56 h-60 rounded-lg" onClick={()=>showProduct(props.data)}>
         <figure className="relative w-full h-4/5 mb-2">
             <span className="absolute bottom-0 left-0 bg-white/60 rounded-lg m-2 px-2">{props.data.category.name}</span>
             <img className="hover:transition hover:duration-500 hover:shadow-md hover:shadow-slate-400 rounded-lg w-full h-full object-cover" src={props.data.images[0]} alt={props.data.title} />
