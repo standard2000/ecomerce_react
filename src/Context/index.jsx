@@ -6,6 +6,8 @@ function EcomProvider({children}) {
 
     // Shopping Cart - increment counter
     const [count, setCount] = useState(0);
+    // Shopping Cart - adding product to the shopping cart 
+    const [cartProducts, setCartProducts] = useState([]);
     // Product Detail - open/close the aside componente
     const [openDetail, setOpenDetail]  = useState(false);  // State to handle open or close the detail
     const onOpenDetail = () => setOpenDetail(true);
@@ -18,10 +20,12 @@ function EcomProvider({children}) {
             count, 
             openDetail,
             productInfo,
+            cartProducts,
             setCount,
             onOpenDetail,
             onCloseDetail,
             setProductInfo,
+            setCartProducts
         }}>
             {children}
         </EcomContext.Provider>
