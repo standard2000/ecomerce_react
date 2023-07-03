@@ -1,6 +1,7 @@
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import { useEcom } from '../../Context';
 import { CardOrder } from '../../Components/CardOrder';
+import { totalPrice } from '../../utils';
 
 function CheckoutProducts() {
   const ecom = useEcom();
@@ -30,7 +31,12 @@ function CheckoutProducts() {
                   />
             ))}
         </div>
-        
+        <div className='px-6'>
+          <p className='flex justify-between items-center'>
+          <span className='font-light text-sm'>Total:</span>
+          <span className='font-medium text-2xl'>{totalPrice(ecom.cartProducts)}</span>
+          </p>
+        </div>
     </aside>
   )
 }
