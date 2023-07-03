@@ -4,7 +4,7 @@ import { CardOrder } from '../../Components/CardOrder';
 
 function CheckoutProducts() {
   const ecom = useEcom();
-  console.log(ecom.openCheckoutProducts);
+//   console.log(ecom.openCheckoutProducts);
   return (
     <aside className={`${ecom.openCheckoutProducts ? 'flex' : 'hidden'} z-10 flex-col fixed right-0 border border-black rounded-lg w-[360px]    h-[calc(98vh-68px)] bg-white`}>
         <div className="flex justify-between items-center p-5">

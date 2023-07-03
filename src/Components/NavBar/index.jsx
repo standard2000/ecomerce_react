@@ -64,7 +64,9 @@ function NavBar() {
             Sign In
           </NavLink>
         </li>
-        <li className="flex border border-black rounded-lg p-1 items-center font-semibold cursor-pointer hover:bg-blue-300 hover:text-white group hover:transition hover:duration-500">
+        <li  className="flex border border-black rounded-lg p-1 items-center font-semibold cursor-pointer hover:bg-blue-300 hover:text-white group hover:transition hover:duration-500"
+        onClick={()=> ecom.onOpenCheckoutProducts() }
+        >
           <div ><ShoppingCartIcon className="w-6 h-6 text-blue-400 group-hover:text-white"></ShoppingCartIcon> </div>
           <div>({ecom.count})</div>
         </li>
