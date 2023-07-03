@@ -18,6 +18,8 @@ function EcomProvider({children}) {
     const [openCheckoutProducts, setOpenCheckoutProducts]  = useState(false);  // State to handle open or close the CheckoutProducts
     const onOpenCheckoutProducts = () => setOpenCheckoutProducts(true);
     const onCloseCheckoutProducts = () => setOpenCheckoutProducts(false);
+    // Checkout Order - state to add order from the checkout
+    const [order, setOrder] = useState([]);
 
   return (
         <EcomContext.Provider value={{
@@ -26,6 +28,8 @@ function EcomProvider({children}) {
             openCheckoutProducts,
             productInfo,
             cartProducts,
+            order,
+            setOrder,
             setCount,
             onOpenDetail,
             onCloseDetail,
