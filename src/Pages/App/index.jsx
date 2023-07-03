@@ -9,6 +9,7 @@ import {NavBar} from "../../Components/NavBar";
 import "./App.css";
 import Layout from "../../Components/Layout";
 import {EcomProvider} from "../../Context";
+import { CheckoutProducts } from "../../Components/CheckoutProducts";
 
 const AppRoutes = () => {
   let routes = useRoutes([
@@ -27,6 +28,7 @@ function App() {
   return (
     <EcomProvider>
       <BrowserRouter>
+        <CheckoutProducts />
         {/* <Layout> */}
         <AppRoutes />
         {/* </Layout> */}
