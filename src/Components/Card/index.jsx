@@ -5,6 +5,7 @@ function Card(props) {
     const ecom = useEcom();
     const showProduct = (productInfo) => {
       ecom.onOpenDetail();
+      ecom.onCloseCheckoutProducts();
       ecom.setProductInfo(productInfo);
     }
     const addProduct = (event, dataProduct) => {
@@ -14,7 +15,7 @@ function Card(props) {
       ecom.onOpenCheckoutProducts();
       ecom.onCloseDetail();
       // console.log(ecom.cartProducts);
-      console.log(ecom.openCheckoutProducts);
+      // console.log(ecom.openCheckoutProducts);
     }
   return (
     <div className="bg-white cursor-pointer w-56 h-60 rounded-lg" onClick={()=>showProduct(props.data)}>
