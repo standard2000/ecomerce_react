@@ -13,7 +13,7 @@ function CheckoutProducts() {
                 <XMarkIcon className="w-6 h-6 text-blue-800 cursor-pointer" onClick={()=>ecom.onCloseCheckoutProducts()} ></XMarkIcon>
             </div>
         </div>
-        <div className='px-6'>
+        <div className='px-6 overflow-y-scroll'>
             {ecom.cartProducts.map((product)=>(
                 <CardOrder key={product.id} title={product.title} imageUrl={product.images[0]} price={product.price} id={product.id} />
             ))}
