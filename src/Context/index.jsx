@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 
 const EcomContext = createContext();
 
@@ -20,6 +20,34 @@ function EcomProvider({children}) {
     const onCloseCheckoutProducts = () => setOpenCheckoutProducts(false);
     // Checkout Order - state to add order from the checkout
     const [order, setOrder] = useState([]);
+    //Get pruducts by title
+    const [searchProducts, setSearchProducts] = useState(null);
+    //Get products
+    const [items, setItems] = useState([]);
+    useEffect(() => {
+        fetch("https://api.escuelajs.co/api/v1/products")
+        .then((response) => response.json())
+        .then((data) => setItems(data));
+    }, []);
+
+    const [filteredItems, setFilteredItems] = useState([]);
+    
+    const getfilteredItemsByTitle = (items, searchProducts)=> {
+        return items?.filter(item => item.title.toLowerCase().includes(searchProducts.toLowerCase()));
+    };
+
+    useEffect(()=>{
+        if(searchProducts) setFilteredItems(getfilteredItemsByTitle(items, searchProducts));
+    },[items, searchProducts]);
+
+    //This is to show a limit on how many products shown
+    const [visible, setVisible] = useState(12);
+    const loadMoreResults = 8;
+    const showMore = () => {
+      setVisible((prevValue) => prevValue + loadMoreResults);
+    };
+
+    
 
   return (
         <EcomContext.Provider value={{
@@ -29,6 +57,13 @@ function EcomProvider({children}) {
             productInfo,
             cartProducts,
             order,
+            items,
+            searchProducts,
+            visible,
+            filteredItems,
+            showMore,
+            setSearchProducts,
+            setItems,
             setOrder,
             setCount,
             onOpenDetail,

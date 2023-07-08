@@ -1,40 +1,44 @@
-// import React from 'react'
-
 import { useState } from "react";
 import Card from "../../Components/Card";
 import Layout from "../../Components/Layout";
-import { useEffect } from "react";
 import { ProductDetail } from "../../Components/ProductDetail";
+import { SparklesIcon } from "@heroicons/react/24/outline";
+import { useEcom } from "../../Context";
 
 function Home() {
-  const [items, setItems] = useState([]);
+  const ecom = useEcom();
 
-  const [visible, setVisible] = useState(12);
-  const loadMoreResults = 8;
+  const itemsToShow = ecom.searchProducts?.length > 0 ? ecom.filteredItems : ecom.items;
+  const renderView = () => {
+    
+    if(itemsToShow.length > 0) {
+      return itemsToShow?.slice(0, ecom.visible).map((item) => (
+        <Card data={item} key={item.id} />
+      ));
+    }else {
+      return <p>We don't have nothing to show, for now!</p>
+      
+    }
 
-  useEffect(() => {
-    fetch("https://api.escuelajs.co/api/v1/products")
-      .then((response) => response.json())
-      .then((data) => setItems(data));
-  }, []);
-
-  const showMore = () => {
-    setVisible((prevValue) => prevValue + loadMoreResults);
-  };
+  }
 
   return (
     <Layout>
-      home
+      <div className="flex items-center mb-10">
+        <h1 className="text-3xl font-semibold flex gap-2">
+          <p>Exclusive Products</p>           <SparklesIcon className="w-7 h-7" />
+        </h1>
+      </div>
+      <div>
+        <input type="text" className="mb-6 w-80 p-2 border border-black focus:outline-none rounded-lg" placeholder="Search a product"
+        onChange={(event)=>ecom.setSearchProducts(event.target.value)}
+        />
+      </div>
       <div className="grid grid-cols-4 gap-5 w-full max-w-screen-lg">
-        {items?.slice(0, visible).map((item) => (
-          <Card data={item} key={item.id} />
-        ))}
-        {/* {items?.map((item) => (
-          <Card data={item} key={item.id} />
-        ))} */}
+        {renderView()}
       </div>
       <div className="my-10">
-        {visible < items.length && <button className="rounded-lg bg-blue-300 py-2 px-6 text-lg font-semibold hover:bg-blue-400 transition duration-500 hover:text-white" onClick={showMore}> Show More</button>}
+        {ecom.visible < itemsToShow.length && <button className="rounded-lg bg-blue-300 py-2 px-6 text-lg font-semibold hover:bg-blue-400 transition duration-500 hover:text-white" onClick={ecom.showMore}> Show More</button>}
       </div>
       <ProductDetail />
     </Layout>
