@@ -15,9 +15,6 @@ function Home() {
       return itemsToShow?.slice(0, ecom.visible).map((item) => (
         <Card data={item} key={item.id} />
       ));
-    }else {
-      return <p>We don't have nothing to show, for now!</p>
-      
     }
 
   }
@@ -34,9 +31,13 @@ function Home() {
         onChange={(event)=>ecom.setSearchProducts(event.target.value)}
         />
       </div>
+      {itemsToShow.length > 0 ?  
       <div className="grid grid-cols-4 gap-5 w-full max-w-screen-lg">
         {renderView()}
       </div>
+      :
+      <div>We don't have nothing to show for now!</div>
+      }
       <div className="my-10">
         {ecom.visible < itemsToShow.length && <button className="rounded-lg bg-blue-300 py-2 px-6 text-lg font-semibold hover:bg-blue-400 transition duration-500 hover:text-white" onClick={ecom.showMore}> Show More</button>}
       </div>
