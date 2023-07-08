@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import { useEcom } from '../../Context';
 import { CardOrder } from '../../Components/CardOrder';
@@ -21,6 +22,7 @@ function CheckoutProducts() {
     }
     ecom.setOrder([...ecom.order, orderToAdd]);
     ecom.setCartProducts([]);
+    ecom.setCount(0);
     // console.log(ecom.order);
   }
 //   console.log(ecom.openCheckoutProducts);
@@ -49,10 +51,12 @@ function CheckoutProducts() {
           <span className='font-light text-sm'>Total:</span>
           <span className='font-medium text-2xl'>${totalPrice(ecom.cartProducts)}</span>
           </p>
+          <Link to={'/my-orders/last'}>
           <button className='rounded-lg bg-black text-white py-3 w-full mb-6' onClick={()=>onChecktourOrder()}>Checkout</button>
+          </Link>
         </div>
     </aside>
   )
 }
 
-export {CheckoutProducts}
+export {CheckoutProducts} 

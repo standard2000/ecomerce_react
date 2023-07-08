@@ -12,9 +12,11 @@ function CardOrder({id, price,title,imageUrl, onDelete}) {
         <div className='flex items-center'>
             <p className='text-lg font-medium'>${price}</p>
             <div>
+                {onDelete && 
                 <XMarkIcon className="w-6 h-6 text-blue-800 cursor-pointer" 
                 onClick={()=>onDelete(id)} 
                 ></XMarkIcon>
+                }
             </div>
         </div>
     </div>
