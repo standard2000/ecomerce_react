@@ -51,7 +51,7 @@ function CheckoutProducts() {
           <span className='font-light text-sm'>Total:</span>
           <span className='font-medium text-2xl'>${totalPrice(ecom.cartProducts)}</span>
           </p>
-          <Link to={'/my-orders/last'}>
+          <Link to={'/my-order/last'}>
           <button className='rounded-lg bg-black text-white py-3 w-full mb-6' onClick={()=>onChecktourOrder()}>Checkout</button>
           </Link>
         </div>
