@@ -1,4 +1,4 @@
-import { BrowserRouter, useRoutes } from "react-router-dom";
+import { BrowserRouter, Navigate, useRoutes } from "react-router-dom";
 import { Home } from "../Home";
 import { MyAccount } from "../MyAccount";
 import { MyOrder } from "../MyOrder";
@@ -7,31 +7,32 @@ import { SignIn } from "../SignIn";
 import { NotFound } from "../NotFound";
 import {NavBar} from "../../Components/NavBar";
 import "./App.css";
-import Layout from "../../Components/Layout";
+
 import {EcomProvider} from "../../Context";
 import { CheckoutProducts } from "../../Components/CheckoutProducts";
 
 const AppRoutes = () => {
   let routes = useRoutes([
-    { path: "/", element: <Home /> },
-    { path: "/shoes", element: <Home /> },
-    { path: "/electronics", element: <Home /> },
-    { path: "/furnitures", element: <Home /> },
-    // { path: "/toys", element: <Home /> },
-    { path: "/others", element: <Home /> },
-    { path: "/my-account", element: <MyAccount /> },
-    { path: "/my-order", element: <MyOrder /> },
-    { path: "/my-order/last", element: <MyOrder /> },
-    { path: "/my-order/:id", element: <MyOrder /> },
-    { path: "/my-orders", element: <MyOrders /> },
-    { path: "/sign-in", element: <SignIn /> },
-    { path: "/*", element: <NotFound /> },
+    { path: "/ecomerce/", element: <Home /> },
+    { path: "/ecomerce/shoes", element: <Home /> },
+    { path: "/ecomerce/electronics", element: <Home /> },
+    { path: "/ecomerce/furnitures", element: <Home /> },
+    // { path: "/ecomerce/toys", element: <Home /> },
+    { path: "/ecomerce/others", element: <Home /> },
+    { path: "/ecomerce/my-account", element: <MyAccount /> },
+    { path: "/ecomerce/my-order", element: <MyOrder /> },
+    { path: "/ecomerce/my-order/last", element: <MyOrder /> },
+    { path: "/ecomerce/my-order/:id", element: <MyOrder /> },
+    { path: "/ecomerce/my-orders", element: <MyOrders /> },
+    { path: "/ecomerce/sign-in", element: <SignIn /> },
   ]);
 
   return routes;
 };
 
 function App() {
+
+
   return (
     <EcomProvider>
       <BrowserRouter>

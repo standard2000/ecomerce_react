@@ -24,7 +24,7 @@ function MyOrder() {
   return (
     <Layout>
       <div className="flex w-80 items-center justify-center relative mb-6">
-        <Link to="/my-orders" className="absolute left-0">
+        <Link to="/ecomerce/my-orders" className="absolute left-0">
           <ChevronLeftIcon className="w-6 h-6 text-blue-800 cursor-pointer" />
         </Link>
         <h1>My Order </h1>

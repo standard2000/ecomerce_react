@@ -14,7 +14,7 @@ function MyOrders() {
       </h1>
       <div className='flex flex-col gap-y-2'> 
       {ecom.order?.map((order, index)=>(
-        <Link to={`/my-order/${order.id}`} key={index}>
+        <Link to={`/ecomerce/my-order/${order.id}`} key={index}>
           <CardOrders  
           totalPrice={order.totalPrice} 
           totalProducts={order.totalProducts} 

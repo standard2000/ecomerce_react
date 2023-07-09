@@ -4,6 +4,14 @@ const EcomContext = createContext();
 
 function EcomProvider({children}) {
 
+    const location = window.location.pathname;
+
+    if(location === '/') {
+        window.location.replace("/ecomerce");
+    }
+
+    
+
     // Shopping Cart - increment counter
     const [count, setCount] = useState(0);
     // Shopping Cart - adding product to the shopping cart 
@@ -108,6 +116,8 @@ function useEcom(){
     const ecom = useContext(EcomContext);
     return ecom;
 }
+
+
 
 
 
