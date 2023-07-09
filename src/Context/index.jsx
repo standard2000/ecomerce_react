@@ -1,16 +1,40 @@
 import { createContext, useContext, useEffect, useState } from "react"
 
 const EcomContext = createContext();
+// here I'll initialize the localStorage
+export const initializeLocalStorage = () => {
+    // first , try to obtain the 'account' and 'sign-in-out' key from the localStorage
+    const accountLs = localStorage.getItem('account');
+    const signInOutLs = localStorage.getItem('sign-in-out');
+    // I create some variables to manage the data in it
+    let parsetAccount;
+    let parsetSignInOut;
+    // Validate if accountLs exist, else create the key in the localStoragej
+    if(!accountLs){
+        localStorage.setItem('account', JSON.stringify({}));
+        parsetAccount = {}
+    }else {
+        parsetAccount = JSON.parse(accountLs);
+    }
+    if(!signInOutLs){
+        localStorage.setItem('sign-in-out', JSON.stringify(false));
+        parsetSignInOut = false;
+    }else{
+        parsetSignInOut = JSON.parse(signInOutLs);
+    }
+}
 
 function EcomProvider({children}) {
-
+    // I do this only to give a better experience in the github deploy page.
     const location = window.location.pathname;
-
     if(location === '/') {
         window.location.replace("/ecomerce");
     }
 
-    
+    // account 
+    const [account, setAccount] = useState({});
+    // Sign in out
+    const [signInOut, setSignInOut] = useState(false);
 
     // Shopping Cart - increment counter
     const [count, setCount] = useState(0);
@@ -40,16 +64,17 @@ function EcomProvider({children}) {
         .then((data) => setItems(data));
     }, []);
 
-
+    // here I filter the item to show
     const [filteredItems, setFilteredItems] = useState([]);
-    
+    // function to filter by title
     const getfilteredItemsByTitle = (items, searchProducts)=> {
         return items?.filter(item => item.title.toLowerCase().includes(searchProducts.toLowerCase()));
     };
+    // fucntion to filter by category
     const getfilteredItemsByCategory = (items, setSearchCategory)=> {
         return items?.filter(item => item.category.name.toLowerCase().includes(setSearchCategory.toLowerCase()));
     };
-
+    // Main function to filter by a key value
     const filterBy = (searchType, items, searchProducts, searchCategory) => {
         if(searchType ==="BY_TITLE"){
             return getfilteredItemsByTitle(items, searchProducts);
@@ -65,6 +90,7 @@ function EcomProvider({children}) {
         }
     }
 
+    // using an useEffect to know when to filter the items
     useEffect(()=>{
         if(searchProducts && searchCategory) setFilteredItems(filterBy('BY_TITLE_AND_CATEGORY',items,searchProducts, searchCategory));
         if(searchProducts && !searchCategory) setFilteredItems(filterBy('BY_TITLE',items,searchProducts, searchCategory));
@@ -94,6 +120,10 @@ function EcomProvider({children}) {
             visible,
             filteredItems,
             searchCategory,
+            account, 
+            signInOut,
+            setAccount,
+            setSignInOut,
             showMore,
             setSearchProducts,
             setItems,
@@ -112,13 +142,10 @@ function EcomProvider({children}) {
   )
 }
 
+// basic function to call the useContext once, and use it in all the components as needed
 function useEcom(){
     const ecom = useContext(EcomContext);
     return ecom;
 }
-
-
-
-
 
 export {EcomProvider, useEcom}

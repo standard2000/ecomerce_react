@@ -6,6 +6,66 @@ import { NavLink } from "react-router-dom";
 
 function NavBar() {
   const ecom = useEcom();
+
+  const signInOut = localStorage.getItem('signInOut');
+  const parsedSignInOut = JSON.parse(signInOut);
+  const isUserSignInOut = ecom.signInOut || parsedSignInOut;
+
+  console.log(isUserSignInOut  , ecom.signInOut , parsedSignInOut);
+
+  const handleSignInOut = () => {
+    const stringifiedSignInOut = JSON.stringify(true);
+    localStorage.setItem("signInOut", stringifiedSignInOut);
+    ecom.setSignInOut(true);
+  }
+
+  const renderView = () => {
+    if(isUserSignInOut) {
+      return (
+        <li>
+          <NavLink to='/ecomerce/sign-in' className={({isActive}) => (isActive ? 'navbar-link' : '')}  onClick={()=> handleSignInOut()}>
+            Sign Out
+          </NavLink>
+        </li>
+      );
+    }else{
+      return (
+        <>
+          <li className="text-black/60">
+            Renier1989@gmail.com
+          </li>
+          <li>
+            <NavLink to='/ecomerce/my-orders' className={({isActive}) => (isActive ? 'navbar-link' : '')}>
+              My Orders
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to='/ecomerce/my-account' className={({isActive}) => (isActive ? 'navbar-link' : '')}>
+              My Account
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to='/ecomerce/sign-in' 
+            className={({isActive}) => (isActive ? 'navbar-link' : '')}
+            onClick={()=> handleSignInOut()}
+            >
+              Sign Out
+            </NavLink>
+          </li>
+          <li  className="flex border border-black rounded-lg p-1 items-center font-semibold cursor-pointer hover:bg-blue-300 hover:text-white group hover:transition hover:duration-500"
+          onClick={()=> ecom.onOpenCheckoutProducts()}
+          >
+            <div ><ShoppingCartIcon className="w-6 h-6 text-blue-400 group-hover:text-white"></ShoppingCartIcon> </div>
+            <div>({ecom.cartProducts.length})</div>
+          </li>
+        </>
+      )
+    }
+  }
+
+
+
+
   return (
     <nav className="w-full flex justify-between items-center fixed z-10 top-0 py-5 px-8 text-sm bg-white">
       <ul className="flex items-center gap-3">
@@ -46,31 +106,7 @@ function NavBar() {
         </li>
       </ul>
       <ul className="flex items-center gap-3">
-        <li className="text-black/60">
-          Renier1989@gmail.com
-        </li>
-        <li>
-          <NavLink to='/ecomerce/my-orders' className={({isActive}) => (isActive ? 'navbar-link' : '')}>
-            My Orders
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/ecomerce/my-account' className={({isActive}) => (isActive ? 'navbar-link' : '')}>
-            My Account
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/ecomerce/sign-in' className={({isActive}) => (isActive ? 'navbar-link' : '')}>
-            Sign In
-          </NavLink>
-        </li>
-        <li  className="flex border border-black rounded-lg p-1 items-center font-semibold cursor-pointer hover:bg-blue-300 hover:text-white group hover:transition hover:duration-500"
-        onClick={()=> ecom.onOpenCheckoutProducts()}
-        >
-          <div ><ShoppingCartIcon className="w-6 h-6 text-blue-400 group-hover:text-white"></ShoppingCartIcon> </div>
-          <div>({ecom.cartProducts.length})</div>
-        </li>
-
+        {renderView()}
       </ul>
     </nav>
   );
