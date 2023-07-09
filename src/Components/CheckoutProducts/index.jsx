@@ -23,6 +23,8 @@ function CheckoutProducts() {
     ecom.setOrder([...ecom.order, orderToAdd]);
     ecom.setCartProducts([]);
     ecom.setCount(0);
+    ecom.setSearchProducts(null);
+    ecom.setSearchCategory(null);
     // console.log(ecom.order);
   }
 //   console.log(ecom.openCheckoutProducts);

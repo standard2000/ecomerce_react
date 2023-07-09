@@ -22,6 +22,8 @@ function EcomProvider({children}) {
     const [order, setOrder] = useState([]);
     //Get pruducts by title
     const [searchProducts, setSearchProducts] = useState(null);
+    //Get pruducts by category
+    const [searchCategory, setSearchCategory] = useState(null);
     //Get products
     const [items, setItems] = useState([]);
     useEffect(() => {
@@ -30,15 +32,41 @@ function EcomProvider({children}) {
         .then((data) => setItems(data));
     }, []);
 
+
     const [filteredItems, setFilteredItems] = useState([]);
     
     const getfilteredItemsByTitle = (items, searchProducts)=> {
         return items?.filter(item => item.title.toLowerCase().includes(searchProducts.toLowerCase()));
     };
+    const getfilteredItemsByCategory = (items, setSearchCategory)=> {
+        return items?.filter(item => item.category.name.toLowerCase().includes(setSearchCategory.toLowerCase()));
+    };
+
+    const filterBy = (searchType, items, searchProducts, searchCategory) => {
+        if(searchType ==="BY_TITLE"){
+            console.log('aqui 1 BY_TITLE');
+            return getfilteredItemsByTitle(items, searchProducts);
+        }
+        if(searchType ==="BY_CATEGORY"){
+            console.log('aqui 2 BY_CATEGORY');
+            return getfilteredItemsByCategory(items, searchCategory);
+        }
+        if(searchType ==="BY_TITLE_AND_CATEGORY"){
+            console.log('aqui 3 BY_TITLE_AND_CATEGORY');
+            return getfilteredItemsByCategory(items, searchCategory).filter(item => item.title.toLowerCase().includes(searchProducts.toLowerCase()));
+        }
+        if(!searchType){
+            console.log('aqui 4 nada');
+            return items;
+        }
+    }
 
     useEffect(()=>{
-        if(searchProducts) setFilteredItems(getfilteredItemsByTitle(items, searchProducts));
-    },[items, searchProducts]);
+        if(searchProducts && searchCategory) setFilteredItems(filterBy('BY_TITLE_AND_CATEGORY',items,searchProducts, searchCategory));
+        if(searchProducts && !searchCategory) setFilteredItems(filterBy('BY_TITLE',items,searchProducts, searchCategory));
+        if(!searchProducts && searchCategory) setFilteredItems(filterBy('BY_CATEGORY',items,searchProducts, searchCategory));
+        if(!searchProducts && !searchCategory) setFilteredItems(filterBy(null,items,searchProducts, searchCategory));
+    },[items, searchProducts,searchCategory]);
 
     //This is to show a limit on how many products shown
     const [visible, setVisible] = useState(12);
@@ -61,6 +89,7 @@ function EcomProvider({children}) {
             searchProducts,
             visible,
             filteredItems,
+            searchCategory,
             showMore,
             setSearchProducts,
             setItems,
@@ -71,7 +100,8 @@ function EcomProvider({children}) {
             onOpenCheckoutProducts,
             onCloseCheckoutProducts,
             setProductInfo,
-            setCartProducts
+            setCartProducts,
+            setSearchCategory
         }}>
             {children}
         </EcomContext.Provider>

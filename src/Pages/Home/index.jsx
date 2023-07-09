@@ -1,14 +1,15 @@
-import { useState } from "react";
 import Card from "../../Components/Card";
 import Layout from "../../Components/Layout";
 import { ProductDetail } from "../../Components/ProductDetail";
 import { SparklesIcon } from "@heroicons/react/24/outline";
 import { useEcom } from "../../Context";
 
+
 function Home() {
   const ecom = useEcom();
 
-  const itemsToShow = ecom.searchProducts?.length > 0 ? ecom.filteredItems : ecom.items;
+  const itemsToShow = ecom.filteredItems;
+
   const renderView = () => {
     
     if(itemsToShow.length > 0) {

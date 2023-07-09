@@ -10,37 +10,37 @@ function NavBar() {
     <nav className="w-full flex justify-between items-center fixed z-10 top-0 py-5 px-8 text-sm bg-white">
       <ul className="flex items-center gap-3">
         <li className="font-semibold text-lg ">
-          <NavLink to="/">
+          <NavLink to="/" onClick={()=> ecom.setSearchCategory()}>
             EcoM
           </NavLink>
         </li>
         <li>
-          <NavLink to="/" className={({isActive}) => (isActive ? 'navbar-link' : '')}>
+          <NavLink to="/" onClick={()=> ecom.setSearchCategory()} className={({isActive}) => (isActive ? 'navbar-link' : '')}>
             All
           </NavLink>
         </li>
         <li>
-          <NavLink to="/clothes" className={({isActive}) => (isActive ? 'navbar-link' : '')}>
-            Clothes
+          <NavLink  to="/shoes" onClick={()=> ecom.setSearchCategory('shoes')} className={({isActive}) => (isActive ? 'navbar-link' : '')}>
+            Shoes
           </NavLink>
         </li>
         <li>
-          <NavLink to="/electronics" className={({isActive}) => (isActive ? 'navbar-link' : '')}>
+          <NavLink  to="/electronics" onClick={()=>ecom.setSearchCategory('electronics')} className={({isActive}) => (isActive ? 'navbar-link' : '')}>
             Electronics
           </NavLink>
         </li>
         <li>
-          <NavLink to="/fornitures" className={({isActive}) => (isActive ? 'navbar-link' : '')}>
-            Fornitures
+          <NavLink  to="/furnitures" onClick={()=>ecom.setSearchCategory('furniture')} className={({isActive}) => (isActive ? 'navbar-link' : '')}>
+            Furnitures
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/toys" className={({isActive}) => (isActive ? 'navbar-link' : '')}>
+        {/* <li>
+          <NavLink  to="/toys" onClick={()=>ecom.setSearchCategory('toys')} className={({isActive}) => (isActive ? 'navbar-link' : '')}>
             Toys
           </NavLink>
-        </li>
+        </li> */}
         <li>
-          <NavLink to="/others" className={({isActive}) => (isActive ? 'navbar-link' : '')}>
+          <NavLink  to="/others" onClick={()=>ecom.setSearchCategory('others')} className={({isActive}) => (isActive ? 'navbar-link' : '')}>
             Others
           </NavLink>
         </li>
@@ -68,7 +68,7 @@ function NavBar() {
         onClick={()=> ecom.onOpenCheckoutProducts()}
         >
           <div ><ShoppingCartIcon className="w-6 h-6 text-blue-400 group-hover:text-white"></ShoppingCartIcon> </div>
-          <div>({ecom.count})</div>
+          <div>({ecom.cartProducts.length})</div>
         </li>
 
       </ul>
