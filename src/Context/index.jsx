@@ -44,19 +44,15 @@ function EcomProvider({children}) {
 
     const filterBy = (searchType, items, searchProducts, searchCategory) => {
         if(searchType ==="BY_TITLE"){
-            console.log('aqui 1 BY_TITLE');
             return getfilteredItemsByTitle(items, searchProducts);
         }
         if(searchType ==="BY_CATEGORY"){
-            console.log('aqui 2 BY_CATEGORY');
             return getfilteredItemsByCategory(items, searchCategory);
         }
         if(searchType ==="BY_TITLE_AND_CATEGORY"){
-            console.log('aqui 3 BY_TITLE_AND_CATEGORY');
             return getfilteredItemsByCategory(items, searchCategory).filter(item => item.title.toLowerCase().includes(searchProducts.toLowerCase()));
         }
         if(!searchType){
-            console.log('aqui 4 nada');
             return items;
         }
     }
