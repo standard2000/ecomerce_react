@@ -11,28 +11,29 @@ function NavBar() {
   const parsedSignInOut = JSON.parse(signInOut);
   const isUserSignInOut = ecom.signInOut || parsedSignInOut;
 
-  console.log(isUserSignInOut  , ecom.signInOut , parsedSignInOut);
+  // console.log(isUserSignInOut  , ecom.signInOut , parsedSignInOut);
 
-  const handleSignInOut = () => {
+  const handleSignOut = () => {
     const stringifiedSignInOut = JSON.stringify(true);
     localStorage.setItem("signInOut", stringifiedSignInOut);
     ecom.setSignInOut(true);
   }
 
+  const account = localStorage.getItem('account');
+  const parsedAccount = JSON.parse(account);
+
+  // has an account
+  const noAccountInLocalStorage = parsedAccount ? Object.keys(parsedAccount).length === 0 : true
+  const noAccountInLocalState = ecom.account ? Object.keys(ecom.account).length === 0 : true
+  const hasUserAnAccount = !noAccountInLocalStorage || !noAccountInLocalState
+
+
   const renderView = () => {
-    if(isUserSignInOut) {
-      return (
-        <li>
-          <NavLink to='/ecomerce/sign-in' className={({isActive}) => (isActive ? 'navbar-link' : '')}  onClick={()=> handleSignInOut()}>
-            Sign Out
-          </NavLink>
-        </li>
-      );
-    }else{
+    if(hasUserAnAccount && !isUserSignInOut) {
       return (
         <>
           <li className="text-black/60">
-            Renier1989@gmail.com
+          {parsedAccount?.email}
           </li>
           <li>
             <NavLink to='/ecomerce/my-orders' className={({isActive}) => (isActive ? 'navbar-link' : '')}>
@@ -47,7 +48,7 @@ function NavBar() {
           <li>
             <NavLink to='/ecomerce/sign-in' 
             className={({isActive}) => (isActive ? 'navbar-link' : '')}
-            onClick={()=> handleSignInOut()}
+            onClick={()=> handleSignOut()}
             >
               Sign Out
             </NavLink>
@@ -59,6 +60,14 @@ function NavBar() {
             <div>({ecom.cartProducts.length})</div>
           </li>
         </>
+      );
+    }else{
+      return (
+        <li>
+          <NavLink to='/ecomerce/sign-in' className={({isActive}) => (isActive ? 'navbar-link' : '')}  onClick={()=> handleSignOut()}>
+            Sign In
+          </NavLink>
+        </li>
       )
     }
   }
@@ -70,7 +79,7 @@ function NavBar() {
     <nav className="w-full flex justify-between items-center fixed z-10 top-0 py-5 px-8 text-sm bg-white">
       <ul className="flex items-center gap-3">
         <li className="font-semibold text-lg ">
-          <NavLink to="/ecomerce/" onClick={()=> ecom.setSearchCategory()}>
+          <NavLink to={isUserSignInOut ? "/ecomerce/sign-in" : "/ecomerce/"} onClick={()=> ecom.setSearchCategory()}>
             EcoM
           </NavLink>
         </li>

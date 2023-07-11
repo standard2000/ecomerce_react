@@ -13,6 +13,15 @@ const [view, setView] = useState('user-info');
 const account = localStorage.getItem("account");
 const parsedAccount = JSON.parse(account);
 const form = useRef(null);
+
+const handleSignIn = ()=>{
+  const stringifiedSignInOut = JSON.stringify(false);
+  localStorage.setItem('signInOut', stringifiedSignInOut);
+  ecom.setSignInOut(false);
+
+  return( <Navigate repalce to={'/ecomerce/'} />)
+}
+
 const CreateNewAccount = ()=>{
   const formData = new FormData(form.current);
   const data = {
@@ -30,13 +39,7 @@ const CreateNewAccount = ()=>{
   handleSignIn()
 }
 
-const handleSignIn = ()=>{
-  const stringifiedSignInOut = JSON.stringify(false);
-  localStorage.setItem('signInOut', stringifiedSignInOut);
-  ecom.setSignInOut(false);
 
-  return( <Navigate repalce to={'/ecomerce/'} />)
-}
 // validating if user has an account
 const noAccountInLocalStorage = parsedAccount ? Object.keys(parsedAccount).length === 0 : true;
 const noAccountInLocalState = ecom.account ? Object.keys(ecom.account).length === 0 : true;
@@ -58,6 +61,7 @@ const renderLogin = () => {
         </div>
         <Link to='/ecomerce/'>
           <button className="w-full py-3 bg-black disabled:bg-black/40 rounded-lg text-white mt-4 mb-3"
+          onClick={()=> handleSignIn()}
           disabled={!hasUserAccount}
           >
             Log In
@@ -67,7 +71,7 @@ const renderLogin = () => {
           <a href="/ecomerce/" className="underline"> Forgot your Password?</a>
         </div>
         <button className=" border border-black text-center rounded-lg py-3 w-full mt-4 disabled:text-black/40 disabled:border-black/40"
-        onClick={()=> setView('create-user-info')}
+        onClick={() => setView('create-user-info')}
         disabled={hasUserAccount}
         >
           Sign In
