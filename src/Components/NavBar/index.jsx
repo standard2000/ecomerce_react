@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 function NavBar() {
   const ecom = useEcom();
 
-  const signInOut = localStorage.getItem('signInOut');
+  const signInOut = localStorage.getItem('sign-in-out');
   const parsedSignInOut = JSON.parse(signInOut);
   const isUserSignInOut = ecom.signInOut || parsedSignInOut;
 
@@ -15,8 +15,9 @@ function NavBar() {
 
   const handleSignOut = () => {
     const stringifiedSignInOut = JSON.stringify(true);
-    localStorage.setItem("signInOut", stringifiedSignInOut);
+    localStorage.setItem("sign-in-out", stringifiedSignInOut);
     ecom.setSignInOut(true);
+    ecom.onCloseCheckoutProducts();
   }
 
   const account = localStorage.getItem('account');

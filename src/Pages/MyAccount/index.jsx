@@ -27,37 +27,37 @@ function MyAccount() {
 
   const renderUserInfo = () => {
     return (
-      <div>
+      <div className="w-80">
         <p>
-          <span>Name: </span>
-          <span>{parsedAccount?.name}</span>
+          <span className="">Name: </span>
+          <span className="ml-2 text-xl font-semibold">{parsedAccount?.name}</span>
         </p>
         <p>
           <span>Email:</span>
-          <span>{parsedAccount?.email}</span>
+          <span className="ml-2 text-xl font-semibold">{parsedAccount?.email}</span>
         </p>
-        <button onClick={() => setView("edit-user-info")}>Edit Info.</button>
+        <button onClick={() => setView("edit-user-info")} className="  border border-black text-center rounded-lg py-3 w-full mt-5 disabled:text-black/40 disabled:border-black/40">Edit Info.</button>
       </div>
     );
   };
 
   const renderEditInfo = () => {
     return (
-      <div>
+      <div className="w-80">
         <form ref={form}>
-          <div>
-            <label htmlFor="name">Name:</label>
-            <input type="text" id="name" name="name" defaultValue={parsedAccount?.name} />
+          <div className="flex flex-col mb-4">
+            <label htmlFor="name">Your Name:</label>
+            <input type="text" className="border border-black px-4 py-2 rounded-lg font-semibold" id="name" name="name" defaultValue={parsedAccount?.name} />
           </div>
-          <div>
-            <label htmlFor="email">Email:</label>
-            <input type="email" id="email" name="email" defaultValue={parsedAccount?.email} />
+          <div className="flex flex-col mb-4">
+            <label htmlFor="email">Your Email:</label>
+            <input type="email" className="border border-black px-4 py-2 rounded-lg font-semibold" id="email" name="email" defaultValue={parsedAccount?.email} />
           </div>
-          <div>
-            <label htmlFor="password">Password:</label>
-            <input type="password" id="password" name="password" defaultValue={parsedAccount?.password} />
+          <div className="flex flex-col mb-4">
+            <label htmlFor="password">Your Password:</label>
+            <input type="password" className="border border-black px-4 py-2 rounded-lg font-semibold" id="password" name="password" defaultValue={parsedAccount?.password} />
           </div>
-          <button onClick={() => editAccountInfo()}>Save</button>
+          <button className="w-full py-3 bg-black disabled:bg-black/40 rounded-lg text-white mt-4 mb-3" onClick={() => editAccountInfo()}>Save</button>
         </form>
       </div>
     );
@@ -69,7 +69,7 @@ function MyAccount() {
   return (
     <Layout>
       <div>
-        <h1> My Account</h1>
+        <h1 className="flex items-center justify-center mb-5"> My Account</h1>
         {renderView()}
       </div>
     </Layout>

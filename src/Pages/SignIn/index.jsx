@@ -1,14 +1,15 @@
-import { Link, Navigate } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import Layout from "../../Components/Layout"
 import { useEcom } from "../../Context";
 import { useRef, useState } from "react";
 
 function SignIn() {
 const ecom = useEcom();
+const navigate = useNavigate();
 
 // create an local state to manage what to render
 const [view, setView] = useState('user-info');
-
+const [errorForm, setErrorForm] = useState(false);
 // get account fomr localStorage
 const account = localStorage.getItem("account");
 const parsedAccount = JSON.parse(account);
@@ -16,13 +17,14 @@ const form = useRef(null);
 
 const handleSignIn = ()=>{
   const stringifiedSignInOut = JSON.stringify(false);
-  localStorage.setItem('signInOut', stringifiedSignInOut);
+  localStorage.setItem('sign-in-out', stringifiedSignInOut);
   ecom.setSignInOut(false);
 
   return( <Navigate repalce to={'/ecomerce/'} />)
 }
 
 const CreateNewAccount = ()=>{
+  
   const formData = new FormData(form.current);
   const data = {
     name : formData.get('name'),
@@ -30,14 +32,36 @@ const CreateNewAccount = ()=>{
     password : formData.get('password'),
   };
 
-  // create the account in localStorage and localState
-  const stringifiedAccount = JSON.stringify(data);
-  localStorage.setItem("account", stringifiedAccount);
-  ecom.setAccount(data);
+  if(data.name === '' || data.email === '' || data.password === ''){
+    setErrorForm(true);
+    
+  }else{
+    setErrorForm(false);
+    // create the account in localStorage and localState
+    const stringifiedAccount = JSON.stringify(data);
+    localStorage.setItem("account", stringifiedAccount);
+    ecom.setAccount(data);
+  
+    // now we can signIn
+    handleSignIn()
+    navigate('/ecomerce');
+  }
 
-  // now we can signIn
-  handleSignIn()
+
+
 }
+
+const renderError = ()=>{
+  if (errorForm) {   
+    return(
+      <div className="text-lg font-light text-red-500 flex items-center justify-center mt-3">
+    Please Fill all Inputs.
+  </div>
+  );
+}
+}
+
+
 
 
 // validating if user has an account
@@ -82,26 +106,29 @@ const renderLogin = () => {
 
 const renderCreateUserInfo = () => {
   return(
-    <div>
+    <div className="w-80">
       <form ref={form}>
-        <div>
-          <label htmlFor="name"> Your Username: </label>
-          <input type="text" id="name" name="name" placeholder="Peter" defaultValue={parsedAccount?.name} />
+        <div className="flex flex-col mb-3">
+          <label htmlFor="name" className="text-md"> Your Username: </label>
+          <input type="text" id="name" name="name" className="font-semibold px-4  border border-black py-2 rounded-lg" placeholder="Peter" defaultValue={parsedAccount?.name} />
         </div>
-        <div>
-          <label htmlFor="email"> Your Email:</label>
-          <input type="email" id="email" name="email" placeholder="email@email.com" defaultValue={parsedAccount?.email} />
+        <div className="flex flex-col mb-3">
+          <label htmlFor="email"  className="text-md"> Your Email:</label>
+          <input type="email" id="email" name="email" className="font-semibold px-4  border border-black py-2 rounded-lg" placeholder="email@email.com" defaultValue={parsedAccount?.email} />
         </div>
-        <div>
-          <label htmlFor="email"> Your Password:</label>
-          <input type="password" id="password" name="password" placeholder="*******" defaultValue={parsedAccount?.password} />
+        <div className="flex flex-col mb-3">
+          <label htmlFor="email"  className="text-md"> Your Password:</label>
+          <input type="password" id="password" name="password" className="font-semibold px-4  border border-black py-2 rounded-lg" placeholder="*******" defaultValue={parsedAccount?.password} />
         </div>
-        <Link to='/ecomerce/'>
-          <button onClick={()=>CreateNewAccount()}>
+        {/* <Link to={errorForm ? '/ecomerce':() => setView('create-user-info')}> */}
+          <button type="button" onClick={()=>CreateNewAccount()} className="w-full py-3 bg-black disabled:bg-black/40 rounded-lg text-white mt-4 mb-3">
             Create
           </button>
-        </Link>
+        {/* </Link> */}
       </form>
+
+      {renderError()}
+
     </div>
     );
 }

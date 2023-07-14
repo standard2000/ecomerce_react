@@ -22,9 +22,10 @@ function CheckoutProducts() {
     }
     ecom.setOrder([...ecom.order, orderToAdd]);
     ecom.setCartProducts([]);
-    ecom.setCount(0);
+    
     ecom.setSearchProducts(null);
     ecom.setSearchCategory(null);
+    ecom.onCloseCheckoutProducts();
     // console.log(ecom.order);
   }
 //   console.log(ecom.openCheckoutProducts);
@@ -54,7 +55,9 @@ function CheckoutProducts() {
           <span className='font-medium text-2xl'>${totalPrice(ecom.cartProducts)}</span>
           </p>
           <Link to={'/ecomerce/my-order/last'}>
-          <button className='rounded-lg bg-black text-white py-3 w-full mb-6' onClick={()=>onChecktourOrder()}>Checkout</button>
+          <button 
+          disabled={totalPrice(ecom.cartProducts) === 0}
+          className='rounded-lg disabled:bg-black/40 bg-black text-white py-3 w-full mb-6' onClick={()=>onChecktourOrder()}>Checkout</button>
           </Link>
         </div>
     </aside>

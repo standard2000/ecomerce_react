@@ -17,7 +17,7 @@ const AppRoutes = () => {
 
   const account = localStorage.getItem('account');
   const parsedAccount = JSON.parse(account);
-  const signInOut = localStorage.getItem('signInOut');
+  const signInOut = localStorage.getItem('sign-in-out');
   const parsedSignInOut = JSON.parse(signInOut);
   const isUserSignInOut = ecom.signInOut || parsedSignInOut;
 
@@ -35,11 +35,11 @@ const AppRoutes = () => {
     // { path: "/ecomerce/toys", element: hasUserAnAccount && !isUserSignInOut ?  <Home /> : <Navigate replace to={'/ecomerce/sign-in'} /> },
     { path: "/ecomerce/others", element: hasUserAnAccount && !isUserSignInOut ?  <Home /> : <Navigate replace to={'/ecomerce/sign-in'} /> },
     
-    { path: "/ecomerce/my-account", element: <MyAccount /> },
-    { path: "/ecomerce/my-order", element: <MyOrder /> },
-    { path: "/ecomerce/my-order/last", element: <MyOrder /> },
-    { path: "/ecomerce/my-order/:id", element: <MyOrder /> },
-    { path: "/ecomerce/my-orders", element: <MyOrders /> },
+    { path: "/ecomerce/my-account", element: hasUserAnAccount && !isUserSignInOut ?  <MyAccount /> : <Navigate replace to={'/ecomerce/sign-in'} /> },
+    { path: "/ecomerce/my-order", element: hasUserAnAccount && !isUserSignInOut ? <MyOrder /> : <Navigate replace to={'/ecomerce/sign-in'} />},
+    { path: "/ecomerce/my-order/last", element: hasUserAnAccount && !isUserSignInOut ? <MyOrder /> : <Navigate replace to={'/ecomerce/sign-in'} />},
+    { path: "/ecomerce/my-order/:id", element: hasUserAnAccount && !isUserSignInOut ? <MyOrder /> : <Navigate replace to={'/ecomerce/sign-in'} />},
+    { path: "/ecomerce/my-orders", element: hasUserAnAccount && !isUserSignInOut ? <MyOrders /> : <Navigate replace to={'/ecomerce/sign-in'} />},
     { path: "/ecomerce/sign-in", element: <SignIn /> },
   ]);
 
@@ -47,10 +47,7 @@ const AppRoutes = () => {
 };
 
 function App() {
-
   initializeLocalStorage();
-
-
   return (
     <EcomProvider>
       <BrowserRouter>
